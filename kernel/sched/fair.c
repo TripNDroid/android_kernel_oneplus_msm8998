@@ -5435,7 +5435,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
 	}
 
 	if (!se) {
+#ifndef CONFIG_TDF_RQ_STATS
 		add_nr_running(rq, 1);
+#endif
 		inc_rq_hmp_stats(rq, p, 1);
 	}
 
@@ -5482,6 +5484,13 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
 	}
 
 #endif /* CONFIG_SMP */
+
+#ifdef CONFIG_TDF_RQ_STATS
+	if (!se) {
+		inc_nr_running(rq);
+    }
+#endif
+
 	hrtick_update(rq);
 }
 
@@ -5542,7 +5551,9 @@ static void dequeue_task_fair(struct rq *rq, struct task_struct *p, int flags)
 	}
 
 	if (!se) {
+#ifndef CONFIG_TDF_RQ_STATS
 		sub_nr_running(rq, 1);
+#endif
 		dec_rq_hmp_stats(rq, p, 1);
 	}
 
@@ -5575,6 +5586,12 @@ static void dequeue_task_fair(struct rq *rq, struct task_struct *p, int flags)
 	}
 
 #endif /* CONFIG_SMP */
+
+#ifdef CONFIG_TDF_RQ_STATS
+	if (!se) {
+		dec_nr_running(rq);
+    }
+#endif
 
 	hrtick_update(rq);
 }
