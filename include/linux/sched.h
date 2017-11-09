@@ -188,6 +188,12 @@ extern void sched_get_nr_running_avg(int *avg, int *iowait_avg, int *big_avg,
 				     unsigned int *max_nr,
 				     unsigned int *big_max_nr);
 
+/* tdf scheduler defines */
+#ifdef CONFIG_TDF_RQ_STATS
+extern void sched_update_tdf(int cpu, unsigned long nr, bool inc);
+extern void sched_running_avg(int *avg);
+#endif
+
 extern void calc_global_load(unsigned long ticks);
 
 #if defined(CONFIG_SMP) && defined(CONFIG_NO_HZ_COMMON)
