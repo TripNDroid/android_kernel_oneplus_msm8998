@@ -58,6 +58,10 @@
 
 #ifdef CONFIG_FB_MSM_TRIPLE_BUFFER
 #define MDSS_FB_NUM 3
+#endif
+
+#ifdef CONFIG_FB_MSM_QTR_BUFFER
+#define MDSS_FB_NUM 4
 #else
 #define MDSS_FB_NUM 2
 #endif
